@@ -1,0 +1,31 @@
+.pagination {
+  margin-top: 48%;
+  display: flex;
+  justify-content: space-between;
+
+  &-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    background: aquamarine;
+    border-radius: 50%;
+    box-sizing: border-box;
+    transition: box-shadow .2s linear;
+
+    &:hover {
+      box-shadow: 0 0 6px 2px #5cb892;
+    }
+  }
+
+  a {
+    margin: 0;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+  }
+
+
+
+}
