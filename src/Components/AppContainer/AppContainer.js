@@ -1,7 +1,8 @@
 import React from "react";
+import { debounce } from "lodash";
+
 import { getData } from "../../helper/getData";
 import { getForecasts } from "../../helper/forecasts";
-
 import { City } from "../City/City";
 import { Pagination } from "../Pagination/Pagination";
 import { Temperature } from "../Temperature/Temperature";
@@ -34,7 +35,18 @@ export default class AppContainer extends React.Component {
         loaded: true,
         width: window.innerWidth,
       });
+      window.addEventListener("resize", debounce(this.updateWidth, 50));
     }
+  }
+
+  updateWidth = () => {
+    this.setState({
+      width: window.innerWidth,
+    });
+  };
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", debounce(this.updateWidth));
   }
 
   setMode = (e, mode) => {
