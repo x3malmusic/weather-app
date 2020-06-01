@@ -1,3 +1,5 @@
+import { niceForecastCreator } from "./forecastsMock";
+
 const getDay = (num) => {
   if (num > 6) {
     num = num - 6;
@@ -23,33 +25,13 @@ const getDay = (num) => {
   }
 };
 
-export const getForecasts = (temperature) => {
-  const forecasts = [
-    {
-      temperature: 302,
-    },
-    {
-      temperature: 302,
-    },
-    {
-      temperature: 302,
-    },
-    {
-      temperature: 302,
-    },
-    {
-      temperature: 302,
-    },
-    {
-      temperature: 302,
-    },
-  ];
-
-  return [temperature, ...forecasts].map((forecast, i) => {
-    const day = new Date();
+export const getForecasts = (currentDay) => {
+  const forecasts = niceForecastCreator();
+  return [currentDay, ...forecasts].map((forecast, i) => {
     return {
       ...forecast,
-      day: getDay(day.getDay() + i),
+      day: getDay(new Date().getDay() + i),
+      img: forecast.img,
     };
-  }, 0);
+  });
 };

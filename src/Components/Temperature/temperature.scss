@@ -1,10 +1,27 @@
 .temperature {
   display: flex;
-  align-items: center;
+
+  &-degree {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 18px;
+  }
+
+
+  h2 {
+    margin: 0;
+    font-size: 64px;
+  }
 
   a {
     text-decoration: none;
     font-size: 24px;
-    margin: 0 10px;
+    margin: 0 8px;
+    line-height: 24px;
+  }
+
+  img {
+    margin-left: auto;
+    width: 85px;
   }
 }

@@ -3,34 +3,31 @@ import "./temperature.scss";
 
 import { tempMode } from "../../helper/correctTemperature";
 
-export default class Temperature extends React.Component {
-  state = {
-    mode: "c",
-  };
-
-  setMode = (e, mode) => {
-    e.preventDefault();
-    this.setState({ mode });
-  };
-
-  showTemperature = (mode) => {
-    const { temperature } = this.props;
+export const Temperature = ({ temperature, setMode, img, mode }) => {
+  const showTemperature = (mode) => {
     return tempMode(mode, temperature);
   };
 
-  render() {
-    const { mode } = this.state;
-    return (
-      <div className="temperature">
-        <h2>{this.showTemperature(mode)}&deg;</h2>
-        <a href="!#" onClick={(e) => this.setMode(e, "c")}>
+  const getImg = () => {
+    if (img) {
+      const url = require(`../../assets/img/${img.toLowerCase()}.png`);
+      return url;
+    }
+  };
+
+  return (
+    <div className="temperature">
+      <h2>{showTemperature(mode)}&deg;</h2>
+      <div className="temperature-degree">
+        <a href="!#" onClick={(e) => setMode(e, "c")}>
           C
         </a>
         |
-        <a href="!#" onClick={(e) => this.setMode(e, "f")}>
+        <a href="!#" onClick={(e) => setMode(e, "f")}>
           F
         </a>
       </div>
-    );
-  }
-}
+      <img src={getImg()} alt="img" />
+    </div>
+  );
+};
