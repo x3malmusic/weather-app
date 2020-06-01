@@ -35,18 +35,21 @@ export default class AppContainer extends React.Component {
         loaded: true,
         width: window.innerWidth,
       });
-      window.addEventListener("resize", debounce(this.updateWidth, 50));
+      window.addEventListener("resize", this.updateWidth());
     }
   }
 
   updateWidth = () => {
-    this.setState({
-      width: window.innerWidth,
-    });
+    return debounce(() => {
+      console.log("wait");
+      this.setState({
+        width: window.innerWidth,
+      });
+    }, 50);
   };
 
   componentWillUnmount() {
-    window.removeEventListener("resize", debounce(this.updateWidth));
+    window.removeEventListener("resize", this.updateWidth);
   }
 
   setMode = (e, mode) => {
