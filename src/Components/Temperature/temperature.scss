@@ -24,4 +24,10 @@
     margin-left: auto;
     width: 85px;
   }
+
+  @media (max-width: 550px) {
+    img {
+      display: none;
+    }
+  }
 }

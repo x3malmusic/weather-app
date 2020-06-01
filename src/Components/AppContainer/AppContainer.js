@@ -6,6 +6,7 @@ import { City } from "../City/City";
 import { Pagination } from "../Pagination/Pagination";
 import { Temperature } from "../Temperature/Temperature";
 import { Loader } from "../Loader/Loader";
+import Slider from "../Slider/Slider";
 import "./app-container.scss";
 
 export default class AppContainer extends React.Component {
@@ -16,20 +17,24 @@ export default class AppContainer extends React.Component {
     forecasts: [],
     pageNumber: 0,
     loaded: false,
+    width: null,
   };
 
   async componentDidMount() {
     const { data } = await getData();
-    const forecasts = getForecasts({
-      temperature: data.main.temp,
-      img: data.weather[0].main,
-    });
-    this.setState({
-      cityName: data.name,
-      country: data.sys.country,
-      forecasts,
-      loaded: true,
-    });
+    if (data) {
+      const forecasts = getForecasts({
+        temperature: data.main.temp,
+        img: data.weather[0].main,
+      });
+      this.setState({
+        cityName: data.name,
+        country: data.sys.country,
+        forecasts,
+        loaded: true,
+        width: window.innerWidth,
+      });
+    }
   }
 
   setMode = (e, mode) => {
@@ -52,6 +57,7 @@ export default class AppContainer extends React.Component {
       pageNumber,
       mode,
       loaded,
+      width,
     } = this.state;
     return (
       <div className="weather-container">
@@ -65,20 +71,40 @@ export default class AppContainer extends React.Component {
               mode={mode}
             />
             <div className="pagination">
-              {forecasts.length
-                ? forecasts.map((forecast, i) => (
-                    <Pagination
-                      setPage={this.setPage}
-                      key={i}
-                      pageNumber={i}
-                      img={forecast.img}
-                      day={forecast.day}
-                      temperature={forecast.temperature}
-                      mode={mode}
-                      selected={pageNumber === i}
-                    />
-                  ))
-                : null}
+              {width < 550 ? (
+                <Slider
+                  active={true}
+                  children={
+                    forecasts.length
+                      ? forecasts.map((forecast, i) => (
+                          <Pagination
+                            setPage={this.setPage}
+                            key={i}
+                            pageNumber={i}
+                            img={forecast.img}
+                            day={forecast.day}
+                            temperature={forecast.temperature}
+                            mode={mode}
+                            selected={pageNumber === i}
+                          />
+                        ))
+                      : null
+                  }
+                />
+              ) : forecasts.length ? (
+                forecasts.map((forecast, i) => (
+                  <Pagination
+                    setPage={this.setPage}
+                    key={i}
+                    pageNumber={i}
+                    img={forecast.img}
+                    day={forecast.day}
+                    temperature={forecast.temperature}
+                    mode={mode}
+                    selected={pageNumber === i}
+                  />
+                ))
+              ) : null}
             </div>
           </>
         ) : (

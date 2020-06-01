@@ -9,4 +9,9 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  margin: 0 15px;
+  
+  @media (max-width: 550px) {
+    max-width: 200px;
+  }
 }
