@@ -41,7 +41,6 @@ export default class AppContainer extends React.Component {
 
   updateWidth = () => {
     return debounce(() => {
-      console.log("wait");
       this.setState({
         width: window.innerWidth,
       });
