@@ -12,7 +12,7 @@ export const getData = async () => {
   const lon = pos.coords.longitude;
   const data = await axios
     .get(
-      `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_API_KEY}`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_API_KEY}`
     )
     .catch((e) => {
       console.log(e);
