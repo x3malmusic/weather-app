@@ -87,7 +87,7 @@ export default class AppContainer extends React.Component {
             <div className="pagination">
               {width < 550 ? (
                 <Slider
-                  active={true}
+                  setPage={this.setPage}
                   children={
                     forecasts.length
                       ? forecasts.map((forecast, i) => (

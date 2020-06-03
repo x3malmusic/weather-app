@@ -9,30 +9,23 @@ export default class Slider extends React.Component {
 
   itemWrapper = () => {
     const { slideIndex } = this.state;
-    const { children, active } = this.props;
-
-    if (active) {
-      return React.Children.map(children, (child) => {
-        return (
-          <div
-            className={
-              parseInt(child.key) === slideIndex ? "showSlide" : "mySlides"
-            }
-          >
-            {child}
-          </div>
-        );
-      });
-    } else {
-      return React.Children.map(children, (child) => {
-        return child;
-      });
-    }
+    const { children } = this.props;
+    return React.Children.map(children, (child) => {
+      return (
+        <div
+          className={
+            parseInt(child.key) === slideIndex ? "showSlide" : "mySlides"
+          }
+        >
+          {child}
+        </div>
+      );
+    });
   };
 
   plusSlides = (e, n) => {
     const { slideIndex } = this.state;
-    const { children } = this.props;
+    const { children, setPage } = this.props;
     e.preventDefault();
 
     const slide = slideIndex + n;
@@ -41,41 +34,31 @@ export default class Slider extends React.Component {
       this.setState({
         slideIndex: 0,
       });
+      setPage(e, 0);
       return;
     } else if (slide < 0) {
       this.setState({
         slideIndex: children.length - 1,
       });
+      setPage(e, children.length - 1);
       return;
     } else
       this.setState({
         slideIndex: slide,
       });
+    setPage(e, slide);
   };
 
   render() {
-    const { active } = this.props;
     return (
       <div className="slider-container">
         {this.itemWrapper()}
-        {active ? (
-          <>
-            <a
-              href="!#"
-              className="prev"
-              onClick={(e) => this.plusSlides(e, -1)}
-            >
-              &#10094;
-            </a>
-            <a
-              href="!#"
-              className="next"
-              onClick={(e) => this.plusSlides(e, 1)}
-            >
-              &#10095;
-            </a>
-          </>
-        ) : null}
+        <a href="!#" className="prev" onClick={(e) => this.plusSlides(e, -1)}>
+          &#10094;
+        </a>
+        <a href="!#" className="next" onClick={(e) => this.plusSlides(e, 1)}>
+          &#10095;
+        </a>
       </div>
     );
   }

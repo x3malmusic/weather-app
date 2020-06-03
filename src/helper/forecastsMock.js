@@ -1,27 +1,27 @@
 const forecasts = [
   {
     temperature: 302,
-    img: "partly_cloudy",
+    img: "sunny",
   },
   {
     temperature: 302,
-    img: "partly_cloudy",
+    img: "sunny",
   },
   {
     temperature: 302,
-    img: "partly_cloudy",
+    img: "sunny",
   },
   {
     temperature: 302,
-    img: "partly_cloudy",
+    img: "sunny",
   },
   {
     temperature: 302,
-    img: "partly_cloudy",
+    img: "sunny",
   },
   {
     temperature: 302,
-    img: "partly_cloudy",
+    img: "sunny",
   },
 ];
 
