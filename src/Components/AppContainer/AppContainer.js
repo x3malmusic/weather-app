@@ -17,25 +17,31 @@ export default class AppContainer extends React.Component {
     country: "",
     forecasts: [],
     pageNumber: 0,
-    loaded: false,
+    loading: true,
     width: null,
+    error: "",
   };
 
   async componentDidMount() {
-    const { data } = await getData();
-    if (data) {
+    const data = await getData();
+    if (!data.error) {
       const forecasts = getForecasts({
-        temperature: data.main.temp,
-        img: data.weather[0].main,
+        temperature: data.data.main.temp,
+        img: data.data.weather[0].main,
       });
       this.setState({
-        cityName: data.name,
-        country: data.sys.country,
+        cityName: data.data.name,
+        country: data.data.sys.country,
         forecasts,
-        loaded: true,
+        loading: false,
         width: window.innerWidth,
       });
       window.addEventListener("resize", this.updateWidth());
+    } else {
+      this.setState({
+        error: data.error.message,
+        loading: false,
+      });
     }
   }
 
@@ -70,12 +76,17 @@ export default class AppContainer extends React.Component {
       forecasts,
       pageNumber,
       mode,
-      loaded,
+      loading,
       width,
+      error,
     } = this.state;
     return (
       <div className="weather-container">
-        {loaded ? (
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <h3 className="error-message">{error}</h3>
+        ) : (
           <>
             <City name={cityName} country={country} />
             <Temperature
@@ -121,8 +132,6 @@ export default class AppContainer extends React.Component {
               ) : null}
             </div>
           </>
-        ) : (
-          <Loader />
         )}
       </div>
     );

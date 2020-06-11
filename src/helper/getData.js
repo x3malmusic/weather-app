@@ -7,15 +7,17 @@ const getPosition = async () => {
 };
 
 export const getData = async () => {
-  const pos = await getPosition(() => {});
-  const lat = pos.coords.latitude;
-  const lon = pos.coords.longitude;
-  const data = await axios
-    .get(
+  try {
+    const pos = await getPosition(() => {});
+    const lat = pos.coords.latitude;
+    const lon = pos.coords.longitude;
+    const data = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_API_KEY}`
-    )
-    .catch((e) => {
-      console.log(e);
-    });
-  return data;
+    );
+    return data;
+  } catch (e) {
+    return {
+      error: e,
+    };
+  }
 };
