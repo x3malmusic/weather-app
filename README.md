@@ -3,4 +3,4 @@
 3) in file .env create REACT_APP_API_KEY string and paste value of your API key in it
 4) run "npm run start" in your terminal
 
-link on working app - https://5ed7b392dd71b779c4d021bc--hardcore-einstein-b8d993.netlify.app
+link on working app - https://5ee20d0d1845d376e7697606--hardcore-einstein-b8d993.netlify.app
